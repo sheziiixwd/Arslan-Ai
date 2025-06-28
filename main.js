@@ -88,7 +88,7 @@ const songCommand = require('./commands/song');
 const aiCommand = require('./commands/ai');
 const { handleTranslateCommand } = require('./commands/translate');
 const { handleSsCommand } = require('./commands/ss');
-const { handleCommand } = require('./lib/reactions');
+const { addReaction, handleCommand } = require('./lib/reactions');
 const { goodnightCommand } = require('./commands/goodnight');
 const { shayariCommand } = require('./commands/shayari');
 const { rosedayCommand } = require('./commands/roseday');
@@ -161,6 +161,12 @@ if (userMessage.startsWith('.autoreact') || userMessage.startsWith('.areact')) {
             quoted: message
         });
     }
+}
+
+// ✅ Auto-reaction using config in autoreact.json
+const { addReaction } = require('./lib/reactions');
+if (!message.key.fromMe) {
+    await addReaction(sock, message);
 }
         // ... rest of your code
         // Check if user is banned (skip ban check for unban command)
